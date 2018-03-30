@@ -1,6 +1,8 @@
 package anna.poddubnaya.injection;
 
 
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.google.gson.Gson;
@@ -8,6 +10,7 @@ import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
+import anna.poddubnaya.data.database.AppDatabase;
 import anna.poddubnaya.data.repository.UserRepositoryImpl;
 import anna.poddubnaya.data.rest.RestApi;
 import anna.poddubnaya.data.rest.RestService;
@@ -52,8 +55,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public UserRepository getUserRepository(Context context, RestService restService) {
-        return new UserRepositoryImpl(context, restService);
+    public UserRepository getUserRepository(Context context, RestService restService, AppDatabase database) {
+        return new UserRepositoryImpl(context, restService,database);
     }
 
 
@@ -104,6 +107,17 @@ public class AppModule {
         return new GsonBuilder()
                 //здесь можно регистировать адаптеры и конвертеры для даты и прочего
                 .create();
+    }
+
+    @Provides
+    @Singleton
+    public AppDatabase getAppDatabase(Context context){
+        AppDatabase appDatabase = Room.databaseBuilder(context,
+                AppDatabase.class,
+                "database")
+                .fallbackToDestructiveMigration()
+                .build();
+        return appDatabase;
     }
 
 

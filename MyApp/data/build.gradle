@@ -34,5 +34,11 @@ dependencies {
     api dependency.okHttpLogging
 
 
+    api dependency.room
+    annotationProcessor dependency.roomCompiler
+    api dependency.roomRx
+
+
+
     api project(path: ':domain')
 }

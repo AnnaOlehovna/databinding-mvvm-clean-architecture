@@ -63,8 +63,6 @@ dependencies {
     implementation dependency.dagger
     annotationProcessor dependency.daggerCompiler
 
-
-
     api project(path: ':data')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

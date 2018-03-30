@@ -39,6 +39,8 @@ ext {
     okHttpVersion = "3.10.0"
 
 
+
+
     dependencies = [
 
             supportAppcompat : "com.android.support:appcompat-v7:$buildToolsSdkVersion",
@@ -66,7 +68,11 @@ ext {
 
 
             okHttp: "com.squareup.okhttp3:okhttp:$okHttpVersion",
-            okHttpLogging: "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+            okHttpLogging: "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
+
+            room: "android.arch.persistence.room:runtime:$archComponentVersion",
+            roomCompiler: "android.arch.persistence.room:compiler:$archComponentVersion",
+            roomRx:"android.arch.persistence.room:rxjava2:$archComponentVersion"
 
     ]
 
