@@ -11,16 +11,19 @@ import javax.inject.Inject;
 import anna.poddubnaya.app.App;
 import anna.poddubnaya.domain.entity.UserEntity;
 import anna.poddubnaya.domain.usecases.GetUserListUseCase;
+import anna.poddubnaya.presentation.base.BaseAdapter;
 import anna.poddubnaya.presentation.base.BaseViewModel;
 import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.screens.user.UserActivity;
 import anna.poddubnaya.presentation.screens.userEdit.UserEditActivity;
+import anna.poddubnaya.presentation.screens.userList.recycler.UserAdapter;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class UserListViewModel extends BaseViewModel {
 
-    public UserAdapter userAdapter = new UserAdapter();
+    protected UserAdapter userAdapter = new UserAdapter();
 
 
     @Inject
@@ -52,17 +55,20 @@ public class UserListViewModel extends BaseViewModel {
 
                     @Override
                     public void onNext(List<UserEntity> userEntities) {
-                        userAdapter.setUserList(userEntities);
-                        userAdapter.setListener(new UserAdapter.OnUserClickListener() {
-                            @Override
-                            public void onClick(UserEntity user) {
-                                Intent intent = new Intent(context, UserActivity.class);
-                                intent.putExtra(Constants.getInstance().USER_ID,user.getObjectId());
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(intent);
-                            }
-                        });
+                        userAdapter.setItemList(userEntities);
+                        userAdapter
+                                .observeClick()
+                                .subscribe(new Consumer<BaseAdapter.ItemEntity>() {
+                                    @Override
+                                    public void accept(BaseAdapter.ItemEntity itemEntity) throws Exception {
+                                        UserEntity user = (UserEntity) itemEntity.model;
+                                        Intent intent = new Intent(context, UserActivity.class);
+                                        intent.putExtra(Constants.getInstance().USER_ID, user.getObjectId());
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        context.startActivity(intent);
 
+                                    }
+                                });
                     }
 
                     @Override
@@ -77,9 +83,9 @@ public class UserListViewModel extends BaseViewModel {
                 });
     }
 
-    public void onAddButtonClick(View view){
+    public void onAddButtonClick(View view) {
         Intent intent = new Intent(view.getContext(), UserEditActivity.class);
-        intent.putExtra(Constants.getInstance().USER_EDIT,"ADD");
+        intent.putExtra(Constants.getInstance().USER_EDIT, "ADD");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         view.getContext().startActivity(intent);
     }

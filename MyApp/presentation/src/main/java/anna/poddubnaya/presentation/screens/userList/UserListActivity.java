@@ -25,10 +25,11 @@ public class UserListActivity extends BaseMvvmActivity<ActivityAllUsersBinding,U
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RecyclerView recyclerView = findViewById(R.id.recycler_user_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(viewModel.userAdapter);
+
+        //binding в себе содержит ссылки на объекты в xml по id
+        binding.recyclerUserList.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerUserList.setHasFixedSize(true);
+        binding.recyclerUserList.setAdapter(viewModel.userAdapter);
 
     }
 
