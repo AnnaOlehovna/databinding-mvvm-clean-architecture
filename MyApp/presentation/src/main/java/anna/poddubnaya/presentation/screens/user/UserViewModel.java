@@ -16,6 +16,8 @@ import org.reactivestreams.Subscription;
 import javax.inject.Inject;
 
 import anna.poddubnaya.app.App;
+import anna.poddubnaya.data.entity.Error;
+import anna.poddubnaya.data.entity.ErrorType;
 import anna.poddubnaya.domain.entity.UserEntity;
 import anna.poddubnaya.domain.usecases.DeleteUserUseCase;
 import anna.poddubnaya.domain.usecases.GetUserByIdUseCase;
@@ -77,6 +79,18 @@ public class UserViewModel extends BaseViewModel {
                     @Override
                     public void onError(Throwable e) {
                         Log.e("AAA", "onError");
+                        if (e instanceof Error) {
+                            Error myError = (Error) e;
+
+                            switch (myError.getMyError()) {
+                                case NO_INTERNET:
+                                    break;
+                                case SERVER_NOT_AVAILABLE:
+                                    break;
+                                case UNKNOWN:
+                                    break;
+                            }
+                        }
                     }
 
                     @Override
@@ -98,7 +112,7 @@ public class UserViewModel extends BaseViewModel {
 
     public void onEditButtonClick(View view) {
         Intent intent = new Intent(view.getContext(), UserEditActivity.class);
-        intent.putExtra(Constants.getInstance().USER_EDIT,"EDIT");
+        intent.putExtra(Constants.getInstance().USER_EDIT, "EDIT");
         intent.putExtra(Constants.getInstance().USER_ID, userId);
         intent.putExtra(Constants.getInstance().USER_NAME, username.get());
         intent.putExtra(Constants.getInstance().USER_AGE, age.get());
@@ -107,7 +121,7 @@ public class UserViewModel extends BaseViewModel {
 
     }
 
-    public void onDeleteButtonClick(View view){
+    public void onDeleteButtonClick(View view) {
         deleteUserUseCase.remove(userId)
                 .subscribe(new Action() {
                     @Override

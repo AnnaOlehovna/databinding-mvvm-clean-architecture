@@ -25,7 +25,9 @@ public class RestService {
 
 
     public Flowable<List<User>> loadUsers() {
-        return restApi.loadUsers();
+        return restApi
+                .loadUsers();
+//                .compose();
     }
 
 

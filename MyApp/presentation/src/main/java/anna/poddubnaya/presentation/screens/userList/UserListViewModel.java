@@ -40,6 +40,19 @@ public class UserListViewModel extends BaseViewModel {
 
     public UserListViewModel() {
         super();
+        userAdapter
+                .observeClick()
+                .subscribe(new Consumer<BaseAdapter.ItemEntity>() {
+                    @Override
+                    public void accept(BaseAdapter.ItemEntity itemEntity) throws Exception {
+                        UserEntity user = (UserEntity) itemEntity.model;
+                        Intent intent = new Intent(context, UserActivity.class);
+                        intent.putExtra(Constants.getInstance().USER_ID, user.getObjectId());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+
+                    }
+                });
     }
 
     @Override
@@ -56,19 +69,6 @@ public class UserListViewModel extends BaseViewModel {
                     @Override
                     public void onNext(List<UserEntity> userEntities) {
                         userAdapter.setItemList(userEntities);
-                        userAdapter
-                                .observeClick()
-                                .subscribe(new Consumer<BaseAdapter.ItemEntity>() {
-                                    @Override
-                                    public void accept(BaseAdapter.ItemEntity itemEntity) throws Exception {
-                                        UserEntity user = (UserEntity) itemEntity.model;
-                                        Intent intent = new Intent(context, UserActivity.class);
-                                        intent.putExtra(Constants.getInstance().USER_ID, user.getObjectId());
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        context.startActivity(intent);
-
-                                    }
-                                });
                     }
 
                     @Override
