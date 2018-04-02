@@ -10,9 +10,9 @@ import javax.inject.Inject;
 
 import anna.poddubnaya.app.App;
 import anna.poddubnaya.domain.entity.UserEntity;
-import anna.poddubnaya.domain.repository.GetUserListUseCase;
-import anna.poddubnaya.presentation.R;
+import anna.poddubnaya.domain.usecases.GetUserListUseCase;
 import anna.poddubnaya.presentation.base.BaseViewModel;
+import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.screens.user.UserActivity;
 import anna.poddubnaya.presentation.screens.userEdit.UserEditActivity;
 import io.reactivex.Observer;
@@ -43,6 +43,7 @@ public class UserListViewModel extends BaseViewModel {
     public void onResume() {
         super.onResume();
         getUserListUseCase.get()
+                .toObservable()
                 .subscribe(new Observer<List<UserEntity>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -56,7 +57,7 @@ public class UserListViewModel extends BaseViewModel {
                             @Override
                             public void onClick(UserEntity user) {
                                 Intent intent = new Intent(context, UserActivity.class);
-                                intent.putExtra("ID",user.getObjectId());
+                                intent.putExtra(Constants.getInstance().USER_ID,user.getObjectId());
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(intent);
                             }
@@ -78,7 +79,7 @@ public class UserListViewModel extends BaseViewModel {
 
     public void onAddButtonClick(View view){
         Intent intent = new Intent(view.getContext(), UserEditActivity.class);
-        intent.putExtra(view.getResources().getString(R.string.edit_user),"ADD");
+        intent.putExtra(Constants.getInstance().USER_EDIT,"ADD");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         view.getContext().startActivity(intent);
     }

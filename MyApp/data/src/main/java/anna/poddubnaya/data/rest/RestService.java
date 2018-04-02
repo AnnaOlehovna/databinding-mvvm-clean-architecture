@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import anna.poddubnaya.data.entity.User;
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 
@@ -23,12 +24,12 @@ public class RestService {
     }
 
 
-    public Observable<List<User>> loadUsers() {
+    public Flowable<List<User>> loadUsers() {
         return restApi.loadUsers();
     }
 
 
-    public Observable<User> loadUserById(String id) {
+    public Flowable<User> loadUserById(String id) {
         return restApi.loadUserById(id);
     }
 

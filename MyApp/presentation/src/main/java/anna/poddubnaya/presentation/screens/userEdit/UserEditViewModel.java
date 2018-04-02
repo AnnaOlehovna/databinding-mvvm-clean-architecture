@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import anna.poddubnaya.app.App;
 import anna.poddubnaya.domain.entity.UserEntity;
-import anna.poddubnaya.domain.repository.SaveUserUseCase;
+import anna.poddubnaya.domain.usecases.SaveUserUseCase;
 import anna.poddubnaya.presentation.base.BaseViewModel;
 import anna.poddubnaya.presentation.screens.userList.UserListActivity;
 import io.reactivex.functions.Action;
@@ -37,6 +37,9 @@ public class UserEditViewModel extends BaseViewModel {
     }
 
     public void onSaveButtonClick(View view) {
+        if (age.get()==null){
+            age.set("0");
+        }
         UserEntity userEntity = new UserEntity(name.get(), profileUrl.get(),
                 Integer.valueOf(age.get()), id.get());
         saveUserUseCase.save(userEntity)
@@ -50,6 +53,9 @@ public class UserEditViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        Intent intent = new Intent(context, UserListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
 
                     }
                 });

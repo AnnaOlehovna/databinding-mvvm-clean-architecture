@@ -1,10 +1,10 @@
-package anna.poddubnaya.domain.repository;
+package anna.poddubnaya.domain.usecases;
 
 import javax.inject.Inject;
 
 import anna.poddubnaya.domain.entity.UserEntity;
 import anna.poddubnaya.domain.executor.PostExecutionThread;
-import anna.poddubnaya.domain.usecases.UserRepository;
+import anna.poddubnaya.domain.repository.UserRepository;
 import io.reactivex.Completable;
 
 public class SaveUserUseCase extends BaseUseCase {

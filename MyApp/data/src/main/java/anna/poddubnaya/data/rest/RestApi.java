@@ -5,6 +5,7 @@ import java.util.List;
 
 import anna.poddubnaya.data.entity.User;
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 import retrofit2.http.Body;
@@ -17,10 +18,10 @@ import retrofit2.http.Path;
 public interface RestApi {
 
     @GET("data/User")
-    Observable<List<User>> loadUsers();
+    Flowable<List<User>> loadUsers();
 
     @GET("data/User/{id}")
-    Observable<User> loadUserById(@Path("id") String id);
+    Flowable<User> loadUserById(@Path("id") String id);
 
     @PUT("data/User")
     Completable save(@Body User user);

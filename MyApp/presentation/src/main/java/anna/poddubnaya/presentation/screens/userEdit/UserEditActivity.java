@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import anna.poddubnaya.presentation.R;
 import anna.poddubnaya.presentation.base.BaseMvvmActivity;
+import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.databinding.ActivityUserEditBinding;
 
 
@@ -18,13 +19,13 @@ public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, 
     @Override
     public UserEditViewModel provideViewModel() {
         UserEditViewModel viewModel = ViewModelProviders.of(this).get(UserEditViewModel.class);
-        if (getIntent().getStringExtra(getResources().getString(R.string.edit_user)).equals("EDIT")) {
-            viewModel.id.set(getIntent().getStringExtra(getResources().getString(R.string.user_id)));
-            viewModel.name.set(getIntent().getStringExtra(getResources().getString(R.string.user_name)));
-            viewModel.profileUrl.set(getIntent().getStringExtra(getResources().getString(R.string.user_image)));
-            viewModel.age.set(getIntent().getStringExtra(getResources().getString(R.string.user_age)));
+        if (getIntent().getStringExtra(Constants.getInstance().USER_EDIT).equals("EDIT")) {
+            viewModel.id.set(getIntent().getStringExtra(Constants.getInstance().USER_ID));
+            viewModel.name.set(getIntent().getStringExtra(Constants.getInstance().USER_NAME));
+            viewModel.profileUrl.set(getIntent().getStringExtra(Constants.getInstance().USER_URL));
+            viewModel.age.set(getIntent().getStringExtra(Constants.getInstance().USER_AGE));
             return viewModel;
-        } else if (getIntent().getStringExtra(getResources().getString(R.string.edit_user)).equals("ADD")) {
+        } else if (getIntent().getStringExtra(Constants.getInstance().USER_EDIT).equals("ADD")) {
             return viewModel;
         }
         return null;

@@ -1,4 +1,4 @@
-package anna.poddubnaya.domain.repository;
+package anna.poddubnaya.domain.usecases;
 
 import anna.poddubnaya.domain.executor.PostExecutionThread;
 import anna.poddubnaya.domain.executor.ThreadExecution;

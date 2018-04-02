@@ -1,16 +1,17 @@
-package anna.poddubnaya.domain.usecases;
+package anna.poddubnaya.domain.repository;
 
 
 import java.util.List;
 
 import anna.poddubnaya.domain.entity.UserEntity;
 import io.reactivex.Completable;
-import io.reactivex.Observable;
+import io.reactivex.Flowable;
+
 
 public interface UserRepository {
 
-    Observable<UserEntity> get(String id);
-    Observable<List<UserEntity>> get();
+    Flowable<UserEntity> get(String id);
+    Flowable<List<UserEntity>> get();
     Completable save(UserEntity userEntity);
     Completable remove(String id);
 }

@@ -1,11 +1,9 @@
 package anna.poddubnaya.presentation.screens.user;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,16 +11,19 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.reactivestreams.Subscription;
+
 import javax.inject.Inject;
 
 import anna.poddubnaya.app.App;
 import anna.poddubnaya.domain.entity.UserEntity;
-import anna.poddubnaya.domain.repository.DeleteUserUseCase;
-import anna.poddubnaya.domain.repository.GetUserByIdUseCase;
-import anna.poddubnaya.presentation.R;
+import anna.poddubnaya.domain.usecases.DeleteUserUseCase;
+import anna.poddubnaya.domain.usecases.GetUserByIdUseCase;
 import anna.poddubnaya.presentation.base.BaseViewModel;
+import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.screens.userEdit.UserEditActivity;
 import anna.poddubnaya.presentation.screens.userList.UserListActivity;
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -56,14 +57,13 @@ public class UserViewModel extends BaseViewModel {
     public void onResume() {
         super.onResume();
         progressVisible.set(true);
-
         getUserByIdUseCase
                 .get(userId)
+                .toObservable()
                 .subscribe(new Observer<UserEntity>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        compositeDisposable.add(d);
-                        Log.e("AAA", "onSubscribe");
+
                     }
 
                     @Override
@@ -98,11 +98,11 @@ public class UserViewModel extends BaseViewModel {
 
     public void onEditButtonClick(View view) {
         Intent intent = new Intent(view.getContext(), UserEditActivity.class);
-        intent.putExtra(view.getResources().getString(R.string.edit_user),"EDIT");
-        intent.putExtra(view.getResources().getString(R.string.user_id), userId);
-        intent.putExtra(view.getResources().getString(R.string.user_name), username.get());
-        intent.putExtra(view.getResources().getString(R.string.user_age), age.get());
-        intent.putExtra(view.getResources().getString(R.string.user_image), userProfileUrl.get());
+        intent.putExtra(Constants.getInstance().USER_EDIT,"EDIT");
+        intent.putExtra(Constants.getInstance().USER_ID, userId);
+        intent.putExtra(Constants.getInstance().USER_NAME, username.get());
+        intent.putExtra(Constants.getInstance().USER_AGE, age.get());
+        intent.putExtra(Constants.getInstance().USER_URL, userProfileUrl.get());
         view.getContext().startActivity(intent);
 
     }
@@ -119,7 +119,9 @@ public class UserViewModel extends BaseViewModel {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-
+                        Intent intent = new Intent(view.getContext(), UserListActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        view.getContext().startActivity(intent);
                     }
                 });
 

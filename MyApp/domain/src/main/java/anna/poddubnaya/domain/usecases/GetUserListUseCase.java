@@ -1,12 +1,13 @@
-package anna.poddubnaya.domain.repository;
+package anna.poddubnaya.domain.usecases;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import anna.poddubnaya.domain.entity.UserEntity;
 import anna.poddubnaya.domain.executor.PostExecutionThread;
-import anna.poddubnaya.domain.usecases.UserRepository;
-import io.reactivex.Observable;
+import anna.poddubnaya.domain.repository.UserRepository;
+import io.reactivex.Flowable;
+
 
 public class GetUserListUseCase extends BaseUseCase {
 
@@ -18,7 +19,7 @@ public class GetUserListUseCase extends BaseUseCase {
         this.userRepository = userRepository;
     }
 
-    public Observable<List<UserEntity>> get() {
+    public Flowable<List<UserEntity>> get() {
         return userRepository.get()
                 .subscribeOn(threadExecution)
                 .observeOn(postExecutionThread);

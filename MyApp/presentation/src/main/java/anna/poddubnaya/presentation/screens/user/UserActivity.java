@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 
 import anna.poddubnaya.presentation.R;
 import anna.poddubnaya.presentation.base.BaseMvvmActivity;
+import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.databinding.ActivityUserBinding;
 
 public class UserActivity extends BaseMvvmActivity<ActivityUserBinding,UserViewModel> {
@@ -17,7 +18,7 @@ public class UserActivity extends BaseMvvmActivity<ActivityUserBinding,UserViewM
     @Override
     public UserViewModel provideViewModel() {
         UserViewModel  userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        userViewModel.userId = getIntent().getStringExtra("ID");
+        userViewModel.userId = getIntent().getStringExtra(Constants.getInstance().USER_ID);
         return userViewModel;
     }
 

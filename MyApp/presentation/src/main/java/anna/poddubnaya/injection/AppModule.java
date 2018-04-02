@@ -1,7 +1,6 @@
 package anna.poddubnaya.injection;
 
 
-import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
@@ -16,7 +15,7 @@ import anna.poddubnaya.data.rest.RestApi;
 import anna.poddubnaya.data.rest.RestService;
 import anna.poddubnaya.domain.UIThread;
 import anna.poddubnaya.domain.executor.PostExecutionThread;
-import anna.poddubnaya.domain.usecases.UserRepository;
+import anna.poddubnaya.domain.repository.UserRepository;
 import anna.poddubnaya.presentation.BuildConfig;
 import dagger.Module;
 import dagger.Provides;
