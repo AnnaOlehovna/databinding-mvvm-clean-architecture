@@ -1,11 +1,11 @@
 package anna.poddubnaya.data.entity;
 
-public class Error extends Exception{
+public class MyError extends Exception{
 
    private ErrorType myError;
 
 
-    public Error(ErrorType myError) {
+    public MyError(ErrorType myError) {
         this.myError = myError;
     }
 

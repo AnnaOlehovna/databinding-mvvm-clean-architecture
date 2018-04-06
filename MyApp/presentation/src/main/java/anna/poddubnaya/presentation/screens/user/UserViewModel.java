@@ -11,13 +11,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.reactivestreams.Subscription;
-
 import javax.inject.Inject;
 
 import anna.poddubnaya.app.App;
-import anna.poddubnaya.data.entity.Error;
-import anna.poddubnaya.data.entity.ErrorType;
+import anna.poddubnaya.data.entity.MyError;
 import anna.poddubnaya.domain.entity.UserEntity;
 import anna.poddubnaya.domain.usecases.DeleteUserUseCase;
 import anna.poddubnaya.domain.usecases.GetUserByIdUseCase;
@@ -25,7 +22,6 @@ import anna.poddubnaya.presentation.base.BaseViewModel;
 import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.screens.userEdit.UserEditActivity;
 import anna.poddubnaya.presentation.screens.userList.UserListActivity;
-import io.reactivex.FlowableSubscriber;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -79,8 +75,8 @@ public class UserViewModel extends BaseViewModel {
                     @Override
                     public void onError(Throwable e) {
                         Log.e("AAA", "onError");
-                        if (e instanceof Error) {
-                            Error myError = (Error) e;
+                        if (e instanceof MyError) {
+                            MyError myError = (MyError) e;
 
                             switch (myError.getMyError()) {
                                 case NO_INTERNET:
