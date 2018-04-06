@@ -14,14 +14,13 @@ import anna.poddubnaya.domain.usecases.GetUserListUseCase;
 import anna.poddubnaya.presentation.base.BaseAdapter;
 import anna.poddubnaya.presentation.base.BaseViewModel;
 import anna.poddubnaya.presentation.constants.Constants;
-import anna.poddubnaya.presentation.screens.user.UserActivity;
 import anna.poddubnaya.presentation.screens.userEdit.UserEditActivity;
 import anna.poddubnaya.presentation.screens.userList.recycler.UserAdapter;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-public class UserListViewModel extends BaseViewModel {
+public class UserListViewModel extends BaseViewModel<UserListRouter> {
 
     protected UserAdapter userAdapter = new UserAdapter();
 
@@ -46,11 +45,8 @@ public class UserListViewModel extends BaseViewModel {
                     @Override
                     public void accept(BaseAdapter.ItemEntity itemEntity) throws Exception {
                         UserEntity user = (UserEntity) itemEntity.model;
-                        Intent intent = new Intent(context, UserActivity.class);
-                        intent.putExtra(Constants.getInstance().USER_ID, user.getObjectId());
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-
+                        if(router!=null)
+                        router.navigateToUser(user.getObjectId());
                     }
                 });
     }

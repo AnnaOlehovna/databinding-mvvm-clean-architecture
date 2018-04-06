@@ -8,9 +8,10 @@ import anna.poddubnaya.presentation.R;
 import anna.poddubnaya.presentation.base.BaseMvvmActivity;
 import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.databinding.ActivityUserEditBinding;
+import anna.poddubnaya.presentation.screens.userList.UserListRouter;
 
 
-public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, UserEditViewModel> {
+public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, UserEditViewModel,UserListRouter> {
     @Override
     public int provideLayoutId() {
         return R.layout.activity_user_edit;
@@ -29,6 +30,11 @@ public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, 
             return viewModel;
         }
         return null;
+    }
+
+    @Override
+    public UserListRouter provideRouter() {
+        return new UserListRouter(this);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -34,8 +35,7 @@ public class ErrorTransformers {
         return new FlowableTransformer<Model, Model>() {
             @Override
             public Publisher<Model> apply(Flowable<Model> upstream) {
-
-                upstream.onErrorResumeNext(new Function<Throwable, Publisher<? extends Model>>() {
+                return upstream.onErrorResumeNext(new Function<Throwable, Publisher<? extends Model>>() {
                     @Override
                     public Publisher<? extends Model> apply(Throwable throwable) throws Exception {
 
@@ -48,18 +48,16 @@ public class ErrorTransformers {
                             HttpException httpException = (HttpException) throwable;
                             String bodyError = (String) httpException.response().body();
 
-                            Type errorType = new TypeToken<Error>(){}.getType();
-                            ErrorException error = gson.fromJson(bodyError,errorType);
+                            Type errorType = new TypeToken<Error>() {
+                            }.getType();
+                            ErrorException error = gson.fromJson(bodyError, errorType);
                             return Flowable.error(error);
 
                         } else {
                             return Flowable.error(new MyError(ErrorType.UNKNOWN));
                         }
-
                     }
                 });
-
-                return null;
             }
         };
     }
