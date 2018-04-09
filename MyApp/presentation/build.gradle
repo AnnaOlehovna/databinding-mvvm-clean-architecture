@@ -52,6 +52,7 @@ dependencies {
     implementation dependency.supportAppcompat
     implementation dependency.supportV4
     implementation dependency.supportDesing
+    implementation dependency.constraintLayout
 
     implementation dependency.archComponentExtention
     annotationProcessor dependency.archComponentCompiler

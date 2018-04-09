@@ -37,7 +37,7 @@ ext {
     retrofitVersion = "2.4.0"
 
     okHttpVersion = "3.10.0"
-
+    constraintLayoutVersion = "1.0.2"
 
 
 
@@ -46,6 +46,7 @@ ext {
             supportAppcompat : "com.android.support:appcompat-v7:$buildToolsSdkVersion",
             supportV4 : "com.android.support:support-v4:$buildToolsSdkVersion",
             supportDesing : "com.android.support:design:$buildToolsSdkVersion",
+            constraintLayout:  "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
 
             archComponentExtention : "android.arch.lifecycle:extensions:$archComponentVersion",
             archComponentCompiler:"android.arch.lifecycle:compiler:$archComponentVersion",
