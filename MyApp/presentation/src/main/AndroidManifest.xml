@@ -24,6 +24,8 @@
         <activity android:name=".screens.user.UserActivity"/>
         <activity android:name=".screens.userEdit.UserEditActivity"/>
 
+        <activity android:name=".screens.userMVP.UserMVPActivity"/>
+
     </application>
 
 

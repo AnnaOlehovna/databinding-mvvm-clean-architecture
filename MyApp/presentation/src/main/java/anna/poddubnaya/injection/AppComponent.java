@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import anna.poddubnaya.presentation.screens.user.UserViewModel;
 import anna.poddubnaya.presentation.screens.userEdit.UserEditViewModel;
 import anna.poddubnaya.presentation.screens.userList.UserListViewModel;
+import anna.poddubnaya.presentation.screens.userMVP.LoggedUserPresenter;
 import dagger.Component;
 
 
@@ -22,5 +23,5 @@ public interface AppComponent {
 
     void inject(UserEditViewModel userEditViewModel);
 
-
+    void inject(LoggedUserPresenter userPresenter);
 }
