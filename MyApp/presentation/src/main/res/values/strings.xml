@@ -11,4 +11,7 @@
     <string name="user_age">User age</string>
     <string name="user_id">ID</string>
     <string name="user_image">Image URL</string>
+
+    <string name="toolbar_title">Toolbar Title</string>
+    <string name="menu_title">some useful commands</string>
 </resources>

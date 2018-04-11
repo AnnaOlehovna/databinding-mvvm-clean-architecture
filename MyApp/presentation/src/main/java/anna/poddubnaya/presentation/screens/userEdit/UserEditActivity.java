@@ -1,8 +1,11 @@
 package anna.poddubnaya.presentation.screens.userEdit;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 
 import anna.poddubnaya.presentation.R;
 import anna.poddubnaya.presentation.base.BaseMvvmActivity;
@@ -40,5 +43,7 @@ public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_more_vert_black_24dp);
+       binding.editUrl.setCompoundDrawables(drawable,drawable,drawable,drawable);
     }
 }
