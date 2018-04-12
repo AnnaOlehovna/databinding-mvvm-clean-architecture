@@ -28,9 +28,6 @@ public class UserListViewModel extends BaseViewModel<UserListRouter> {
     @Inject
     public GetUserListUseCase getUserListUseCase;
 
-    @Inject
-    public Context context;
-
     @Override
     public void createInject() {
         App.getAppComponent().inject(this);
@@ -80,10 +77,8 @@ public class UserListViewModel extends BaseViewModel<UserListRouter> {
     }
 
     public void onAddButtonClick(View view) {
-        Intent intent = new Intent(view.getContext(), UserEditActivity.class);
-        intent.putExtra(Constants.getInstance().USER_EDIT, "ADD");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        view.getContext().startActivity(intent);
+        if(router!=null)
+       router.navigateToAddUser();
     }
 
 

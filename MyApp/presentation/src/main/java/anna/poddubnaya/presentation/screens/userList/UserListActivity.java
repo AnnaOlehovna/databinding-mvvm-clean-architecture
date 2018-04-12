@@ -12,6 +12,7 @@ import anna.poddubnaya.presentation.databinding.ActivityAllUsersBinding;
 
 
 public class UserListActivity extends BaseMvvmActivity<ActivityAllUsersBinding,UserListViewModel,UserListRouter> {
+
     @Override
     public int provideLayoutId() {
         return R.layout.activity_all_users;

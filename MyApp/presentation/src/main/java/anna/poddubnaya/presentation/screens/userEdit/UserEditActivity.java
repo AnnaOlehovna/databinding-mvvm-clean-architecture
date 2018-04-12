@@ -14,7 +14,7 @@ import anna.poddubnaya.presentation.databinding.ActivityUserEditBinding;
 import anna.poddubnaya.presentation.screens.userList.UserListRouter;
 
 
-public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, UserEditViewModel,UserListRouter> {
+public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, UserEditViewModel,UserEditRouter> {
     @Override
     public int provideLayoutId() {
         return R.layout.activity_user_edit;
@@ -36,14 +36,17 @@ public class UserEditActivity extends BaseMvvmActivity<ActivityUserEditBinding, 
     }
 
     @Override
-    public UserListRouter provideRouter() {
-        return new UserListRouter(this);
+    public UserEditRouter provideRouter() {
+        return new UserEditRouter(this);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Drawable drawable = ContextCompat.getDrawable(this,R.drawable.ic_more_vert_black_24dp);
-       binding.editUrl.setCompoundDrawables(drawable,drawable,drawable,drawable);
+      binding.buttonSaveUser.bringToFront();
+      binding.textForButton.bringToFront();
+      binding.arrowForButton.bringToFront();
     }
+
+
 }

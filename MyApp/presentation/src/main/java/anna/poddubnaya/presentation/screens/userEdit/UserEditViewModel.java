@@ -16,10 +16,8 @@ import anna.poddubnaya.presentation.screens.userList.UserListActivity;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
-public class UserEditViewModel extends BaseViewModel {
+public class UserEditViewModel extends BaseViewModel<UserEditRouter> {
 
-    @Inject
-    public Context context;
     @Inject
     public SaveUserUseCase saveUserUseCase;
 
@@ -46,17 +44,14 @@ public class UserEditViewModel extends BaseViewModel {
                 .subscribe(new Action() {
                     @Override
                     public void run() throws Exception {
-                        Intent intent = new Intent(context, UserListActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        if (router!=null)
+                        router.back();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Intent intent = new Intent(context, UserListActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-
+                        if (router!=null)
+                            router.back();
                     }
                 });
     }

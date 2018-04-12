@@ -1,10 +1,8 @@
 package anna.poddubnaya.presentation.screens.user;
 
-import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -19,15 +17,12 @@ import anna.poddubnaya.domain.entity.UserEntity;
 import anna.poddubnaya.domain.usecases.DeleteUserUseCase;
 import anna.poddubnaya.domain.usecases.GetUserByIdUseCase;
 import anna.poddubnaya.presentation.base.BaseViewModel;
-import anna.poddubnaya.presentation.constants.Constants;
-import anna.poddubnaya.presentation.screens.userEdit.UserEditActivity;
-import anna.poddubnaya.presentation.screens.userList.UserListActivity;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
-public class UserViewModel extends BaseViewModel {
+public class UserViewModel extends BaseViewModel<UserRouter> {
 
 
     public String userId = "";
@@ -61,12 +56,11 @@ public class UserViewModel extends BaseViewModel {
                 .subscribe(new Observer<UserEntity>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        compositeDisposable.add(d);
                     }
 
                     @Override
                     public void onNext(UserEntity userEntity) {
-                        Log.e("AAA", "onNext");
                         username.set(userEntity.getUsername());
                         userProfileUrl.set(userEntity.getProfileUrl());
                         age.set(String.valueOf(userEntity.getAge()));
@@ -74,7 +68,6 @@ public class UserViewModel extends BaseViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("AAA", "onError");
                         if (e instanceof MyError) {
                             MyError myError = (MyError) e;
 
@@ -92,9 +85,7 @@ public class UserViewModel extends BaseViewModel {
                     @Override
                     public void onComplete() {
                         progressVisible.set(false);
-                        Log.e("AAA", "onComplete");
                     }
-
                 });
     }
 
@@ -107,14 +98,8 @@ public class UserViewModel extends BaseViewModel {
     }
 
     public void onEditButtonClick(View view) {
-        Intent intent = new Intent(view.getContext(), UserEditActivity.class);
-        intent.putExtra(Constants.getInstance().USER_EDIT, "EDIT");
-        intent.putExtra(Constants.getInstance().USER_ID, userId);
-        intent.putExtra(Constants.getInstance().USER_NAME, username.get());
-        intent.putExtra(Constants.getInstance().USER_AGE, age.get());
-        intent.putExtra(Constants.getInstance().USER_URL, userProfileUrl.get());
-        view.getContext().startActivity(intent);
-
+        if (router != null)
+            router.navigateToEditUser(userId, username.get(), age.get(), userProfileUrl.get());
     }
 
     public void onDeleteButtonClick(View view) {
@@ -122,16 +107,14 @@ public class UserViewModel extends BaseViewModel {
                 .subscribe(new Action() {
                     @Override
                     public void run() throws Exception {
-                        Intent intent = new Intent(view.getContext(), UserListActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        view.getContext().startActivity(intent);
+                        if (router != null)
+                            router.back();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        Intent intent = new Intent(view.getContext(), UserListActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        view.getContext().startActivity(intent);
+                        if (router != null)
+                            router.back();
                     }
                 });
 

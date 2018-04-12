@@ -1,53 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-       <variable
-           name="viewModel"
-           type="anna.poddubnaya.presentation.screens.userEdit.UserEditViewModel"/>
+
+        <variable
+            name="viewModel"
+            type="anna.poddubnaya.presentation.screens.userEdit.UserEditViewModel" />
     </data>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <EditText
-        android:layout_margin="10dp"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:hint="@string/user_name"
-        android:padding="15dp"
-        android:text="@={viewModel.name}"
-        />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:hint="@string/user_age"
-        android:padding="15dp"
-        android:text="@={viewModel.age}"
-        />
 
-    <EditText
-        android:id="@+id/edit_url"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:hint="@string/user_image"
-        android:padding="15dp"
-        android:text="@={viewModel.profileUrl}"
-        />
+        <EditText
+            android:id="@+id/edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="top"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="100dp"
+            android:hint="@string/user_name"
+            android:padding="15dp"
+            android:text="@={viewModel.name}"
+            android:translationY="50dp" />
 
-    <Button
-        android:id="@+id/button_save_user"
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="@string/save_user"
-        android:onClick="@{viewModel::onSaveButtonClick}"/>
-</LinearLayout>
+        <EditText
+            android:id="@+id/edit_userage"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:foregroundGravity="bottom"
+            android:hint="@string/user_age"
+            android:inputType="number"
+            android:padding="15dp"
+            android:text="@={viewModel.age}"
+            android:translationY="120dp"/>
+
+        <EditText
+            android:id="@+id/edit_url"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="10dp"
+            android:hint="@string/user_image"
+            android:inputType="textUri"
+            android:padding="15dp"
+            android:text="@={viewModel.profileUrl}"
+            android:translationY="190dp"/>
+
+        <TextView
+            android:id="@+id/button_save_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:background="#c6c7c7"
+            android:textColor="#000000"
+            android:padding="5dp"
+            android:onClick="@{viewModel::onSaveButtonClick}"
+            android:text="@string/save_user" />
+
+        <ImageView
+            android:id="@+id/arrow_for_button"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
+            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
+
+        <TextView
+            android:id="@+id/text_for_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:textColor="#000000"
+            android:text="@string/button_save" />
+
+        <View
+            android:id="@+id/base_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0fd9d9d9" />
+
+
+
+
+    </FrameLayout>
+
+
 </layout>

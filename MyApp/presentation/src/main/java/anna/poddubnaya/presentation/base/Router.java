@@ -3,6 +3,7 @@ package anna.poddubnaya.presentation.base;
 import android.app.Activity;
 
 public abstract class Router {
+
     private Activity activity;
 
     public Activity getActivity() {

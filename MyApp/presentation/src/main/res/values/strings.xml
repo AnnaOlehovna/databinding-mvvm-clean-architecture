@@ -14,4 +14,7 @@
 
     <string name="toolbar_title">Toolbar Title</string>
     <string name="menu_title">some useful commands</string>
+
+    <string name="button_save">Click this button "\n" to save current user</string>
+
 </resources>

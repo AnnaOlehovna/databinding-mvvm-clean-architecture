@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 
 import anna.poddubnaya.presentation.base.Router;
+import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.screens.user.UserActivity;
+import anna.poddubnaya.presentation.screens.userEdit.UserEditActivity;
 
 public class UserListRouter extends Router {
 
@@ -15,11 +17,15 @@ public class UserListRouter extends Router {
 
     public void navigateToUser(String id) {
         Intent intent = new Intent(getActivity(), UserActivity.class);
-        intent.putExtra("KEY_VALUE", id);
+        intent.putExtra(Constants.getInstance().USER_ID, id);
+        getActivity().startActivity(intent);
+    }
+
+    public void navigateToAddUser(){
+        Intent intent = new Intent(getActivity(), UserEditActivity.class);
+        intent.putExtra(Constants.getInstance().USER_EDIT,"ADD");
         getActivity().startActivity(intent);
 
-        //или
-//        UserMVPActivity.show(getActivity(), id);
     }
 
 
