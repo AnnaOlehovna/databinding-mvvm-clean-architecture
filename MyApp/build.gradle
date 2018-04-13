@@ -80,6 +80,17 @@ ext {
 
 }
 
+//
+//task uploadToFabric(dependsOn: "assembleRelease"){
+//    def groupName = "mapp-test"
+//    def releaseNotes = ""
+//
+//    Task task = tasks.getByName("crashlyticsUploadDistributionRelease")
+//    task.ext.betaDistributionReleaseNotes = releaseNotes
+//    task.ext.betaDistributionGroupAliases = groupName
+//    task.execute()
+//}
+
 allprojects {
     repositories {
         google()
