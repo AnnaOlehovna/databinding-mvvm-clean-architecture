@@ -15,6 +15,9 @@ import javax.inject.Singleton;
 
 import anna.poddubnaya.data.entity.ErrorType;
 import anna.poddubnaya.data.entity.MyError;
+import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
+import io.reactivex.CompletableTransformer;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.functions.Function;
@@ -60,5 +63,26 @@ public class ErrorTransformers {
                 });
             }
         };
+    }
+
+    public CompletableTransformer parseError(){
+        return new CompletableTransformer() {
+            @Override
+            public CompletableSource apply(Completable upstream) {
+                return upstream.onErrorResumeNext(new Function<Throwable, CompletableSource>() {
+                    @Override
+                    public CompletableSource apply(Throwable throwable) throws Exception {
+                        if (throwable instanceof SocketTimeoutException) {
+                            return Completable.error(new MyError(ErrorType.SERVER_NOT_AVAILABLE));
+                        } else if (throwable instanceof IOException) {
+                            return Completable.error(new MyError(ErrorType.NO_INTERNET));
+                        } else {
+                            return Completable.error(new MyError(ErrorType.UNKNOWN));
+                        }
+                    }
+                });
+            }
+        };
+
     }
 }

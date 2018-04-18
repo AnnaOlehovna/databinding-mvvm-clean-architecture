@@ -10,9 +10,10 @@
             type="anna.poddubnaya.presentation.screens.userEdit.UserEditViewModel" />
     </data>
 
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/main_layout">
 
 
         <EditText
@@ -21,56 +22,76 @@
             android:layout_height="70dp"
             android:layout_gravity="top"
             android:layout_margin="10dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/user_name"
             android:padding="15dp"
             android:text="@={viewModel.name}"
-            android:translationY="50dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_save_user" />
 
         <EditText
             android:id="@+id/edit_userage"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:foregroundGravity="bottom"
             android:hint="@string/user_age"
             android:inputType="number"
             android:padding="15dp"
             android:text="@={viewModel.age}"
-            android:translationY="120dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_username" />
 
         <EditText
             android:id="@+id/edit_url"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/user_image"
             android:inputType="textUri"
             android:padding="15dp"
             android:text="@={viewModel.profileUrl}"
-            android:translationY="190dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_userage" />
 
         <TextView
             android:id="@+id/button_save_user"
-            android:layout_width="wrap_content"
+            android:layout_width="59dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="10dp"
-            android:textSize="20sp"
-            android:textAllCaps="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:background="#c6c7c7"
-            android:textColor="#000000"
-            android:padding="5dp"
             android:onClick="@{viewModel::onSaveButtonClick}"
-            android:text="@string/save_user" />
+            android:padding="5dp"
+            android:text="@string/save_user"
+            android:textAllCaps="true"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/arrow_for_button"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/button_save_user"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
         <TextView
@@ -78,22 +99,113 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="20dp"
-            android:textSize="15sp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/button_save"
             android:textColor="#000000"
-            android:text="@string/button_save" />
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/arrow_for_button"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <View
+        <ImageView
+            android:id="@+id/arrow_username"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_username"
+            app:srcCompat="@drawable/ic_arrow_upward_black_24dp"
+            />
+
+        <TextView
+            android:id="@+id/text_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/edit_username"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/arrow_username" />
+
+        <ImageView
+            android:id="@+id/arrow_userage"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_userage"
+            app:srcCompat="@drawable/ic_arrow_upward_black_24dp"
+            />
+
+        <TextView
+            android:id="@+id/text_userage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/edit_userage"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/arrow_userage" />
+
+        <ImageView
+            android:id="@+id/arrow_userUrl"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_url"
+            app:srcCompat="@drawable/ic_arrow_upward_black_24dp"
+            />
+
+        <TextView
+            android:id="@+id/text_userUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/edit_userUrl"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/arrow_userUrl" />
+
+        <LinearLayout
             android:id="@+id/base_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#0fd9d9d9" />
+            android:background="#d9d9d9"
+            app:layout_constraintBottom_toTopOf="@+id/text_for_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical" />
 
 
 
 
-    </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </layout>

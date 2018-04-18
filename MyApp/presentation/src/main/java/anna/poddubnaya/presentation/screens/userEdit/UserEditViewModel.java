@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
 import android.view.View;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import anna.poddubnaya.app.App;
+import anna.poddubnaya.data.entity.MyError;
 import anna.poddubnaya.domain.entity.UserEntity;
 import anna.poddubnaya.domain.usecases.SaveUserUseCase;
 import anna.poddubnaya.presentation.base.BaseViewModel;
@@ -35,7 +37,7 @@ public class UserEditViewModel extends BaseViewModel<UserEditRouter> {
     }
 
     public void onSaveButtonClick(View view) {
-        if (age.get()==null){
+        if (age.get() == null) {
             age.set("0");
         }
         UserEntity userEntity = new UserEntity(name.get(), profileUrl.get(),
@@ -44,14 +46,29 @@ public class UserEditViewModel extends BaseViewModel<UserEditRouter> {
                 .subscribe(new Action() {
                     @Override
                     public void run() throws Exception {
-                        if (router!=null)
-                        router.back();
+                        if (router != null)
+                            router.back();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        if (router!=null)
-                            router.back();
+                        if (router != null) {
+                            if (throwable instanceof MyError) {
+                                MyError myError = (MyError) throwable;
+                                switch (myError.getMyError()) {
+                                    case NO_INTERNET:
+                                        Toast.makeText(router.getActivity(), "Sorry, you can not save User without internet connection." +
+                                                "Please, check internet", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case SERVER_NOT_AVAILABLE:
+                                        Toast.makeText(router.getActivity(), "Sorry, smth wrong with server. Please, try later" +
+                                                "Please, check internet", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case UNKNOWN:
+                                        break;
+                                }
+                            }
+                        }
                     }
                 });
     }

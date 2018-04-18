@@ -41,11 +41,14 @@ public class RestService {
 
     public Completable save(User user){
         return restApi
-                .save(user);
+                .save(user)
+                .compose(errorTransformers.parseError());
+
     }
 
     public Completable remove(String id){
-        return restApi.remove(id);
+        return restApi.remove(id)
+                .compose(errorTransformers.parseError());
     }
 
 }

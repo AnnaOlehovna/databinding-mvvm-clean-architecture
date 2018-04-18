@@ -15,6 +15,12 @@
     <string name="toolbar_title">Toolbar Title</string>
     <string name="menu_title">some useful commands</string>
 
-    <string name="button_save">Click this button "\n" to save current user</string>
+    <string name="button_save">Click this button "\n"to save current user</string>
+    <string name="edit_username">Print here "\n"user NAME</string>
+
+    <string name="edit_userage">Print here "\n"user AGE</string>
+
+    <string name="edit_userUrl">Print here URL "\n"for profile image</string>
+
 
 </resources>

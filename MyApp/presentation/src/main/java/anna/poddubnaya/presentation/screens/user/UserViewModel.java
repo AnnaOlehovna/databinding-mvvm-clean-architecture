@@ -5,6 +5,7 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -70,7 +71,6 @@ public class UserViewModel extends BaseViewModel<UserRouter> {
                     public void onError(Throwable e) {
                         if (e instanceof MyError) {
                             MyError myError = (MyError) e;
-
                             switch (myError.getMyError()) {
                                 case NO_INTERNET:
                                     break;
@@ -113,8 +113,23 @@ public class UserViewModel extends BaseViewModel<UserRouter> {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        if (router != null)
-                            router.back();
+                        if (router != null) {
+                            if (throwable instanceof MyError) {
+                                MyError myError = (MyError) throwable;
+                                switch (myError.getMyError()) {
+                                    case NO_INTERNET:
+                                        Toast.makeText(router.getActivity(), "Sorry, you can not save User without internet connection. " +
+                                                "Please, check internet", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case SERVER_NOT_AVAILABLE:
+                                        Toast.makeText(router.getActivity(), "Sorry, smth wrong with server. Please, try later"
+                                                , Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case UNKNOWN:
+                                        break;
+                                }
+                            }
+                        }
                     }
                 });
 

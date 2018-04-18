@@ -25,7 +25,6 @@ public class UserRepositoryImpl implements UserRepository {
     private Context context;
     private RestService restService;
     private UserDao userDao;
-    private boolean connected = false;
 
     public UserRepositoryImpl(Context context, RestService restService, AppDatabase database) {
         this.context = context;
@@ -95,26 +94,17 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Completable save(UserEntity userEntity) {
-        if (checkNetwork()) {
             User user = new User();
             user.setUsername(userEntity.getUsername());
             user.setAge(userEntity.getAge());
             user.setObjectId(userEntity.getObjectId());
             user.setProfileUrl(userEntity.getProfileUrl());
             return restService.save(user);
-        } else {
-            return Completable.error(new Throwable("no internet connection"));
-        }
-
     }
 
     @Override
     public Completable remove(String id) {
-        if (checkNetwork()) {
             return restService.remove(id);
-        } else {
-            return Completable.error(new Throwable("no internet connection"));
-        }
     }
 
 
