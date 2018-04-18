@@ -21,8 +21,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
-    signingConfigs{
-        debug{
+    signingConfigs {
+        debug {
             storeFile file('../dev_key.jks')
             storePassword '123456'
             keyAlias 'key007'

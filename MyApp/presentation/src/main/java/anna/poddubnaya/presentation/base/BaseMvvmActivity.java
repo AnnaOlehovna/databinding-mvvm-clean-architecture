@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import anna.poddubnaya.presentation.BR;
+import anna.poddubnaya.presentation.notification.NewMessageNotification;
 
 
 public abstract class BaseMvvmActivity<Binding extends ViewDataBinding,
@@ -32,6 +33,8 @@ public abstract class BaseMvvmActivity<Binding extends ViewDataBinding,
         binding.executePendingBindings();
         router = provideRouter();
         viewModel.attachRouter(router);
+
+        NewMessageNotification.notify(this,"Message",15);
     }
 
     @Override

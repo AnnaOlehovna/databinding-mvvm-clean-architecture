@@ -1,9 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="anna.poddubnaya.presentation">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name="anna.poddubnaya.app.App"
@@ -13,23 +16,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".screens.userList.UserListActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".screens.user.UserActivity" />
+        <activity android:name=".screens.userEdit.UserEditActivity" />
+        <activity android:name=".screens.userMVP.UserMVPActivity" />
 
-        <activity android:name=".screens.user.UserActivity"/>
-        <activity android:name=".screens.userEdit.UserEditActivity"/>
+        <provider
+            android:authorities=".utils.MyFileProvider"
+            android:name=".utils.MyFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
 
-        <activity android:name=".screens.userMVP.UserMVPActivity"/>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/my_file"/>
+        </provider>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="9da9bbeda6f60bf9311fe6d2f59365ffbea0e13f" />
     </application>
-
 
 </manifest>
