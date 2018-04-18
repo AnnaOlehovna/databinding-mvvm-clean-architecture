@@ -26,6 +26,9 @@
 
         <activity android:name=".screens.userMVP.UserMVPActivity"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="9da9bbeda6f60bf9311fe6d2f59365ffbea0e13f" />
     </application>
 
 
