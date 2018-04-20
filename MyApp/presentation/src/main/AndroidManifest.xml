@@ -27,8 +27,8 @@
         <activity android:name=".screens.userMVP.UserMVPActivity" />
 
         <provider
-            android:authorities=".utils.MyFileProvider"
-            android:name=".utils.MyFileProvider"
+            android:authorities="anna.poddubnaya.presentation.utils.MyFileProvider"
+            android:name="anna.poddubnaya.presentation.utils.MyFileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
 

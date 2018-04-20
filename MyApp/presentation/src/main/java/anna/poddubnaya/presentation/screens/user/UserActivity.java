@@ -1,6 +1,8 @@
 package anna.poddubnaya.presentation.screens.user;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -8,11 +10,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.File;
+
 import anna.poddubnaya.presentation.R;
 import anna.poddubnaya.presentation.base.BaseMvvmActivity;
 import anna.poddubnaya.presentation.constants.Constants;
 import anna.poddubnaya.presentation.databinding.ActivityUserBinding;
 import anna.poddubnaya.presentation.screens.userList.UserListRouter;
+import anna.poddubnaya.presentation.utils.ImageChooser;
 
 public class UserActivity extends BaseMvvmActivity<ActivityUserBinding, UserViewModel, UserRouter> {
 
@@ -43,9 +48,17 @@ public class UserActivity extends BaseMvvmActivity<ActivityUserBinding, UserView
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ImageChooser.startCamera(UserActivity.this);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode== Activity.RESULT_OK) {
+            File file = ImageChooser.getImageFromResult(this, requestCode, resultCode, data);
+        }
     }
 
     @Override
