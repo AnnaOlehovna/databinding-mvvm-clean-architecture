@@ -36,6 +36,7 @@
 
     <string name="action_share">Share</string>
     <string name="action_reply">Reply</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
