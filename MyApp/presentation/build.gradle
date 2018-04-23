@@ -87,7 +87,7 @@ dependencies {
 
     implementation dependency.archComponentExtention
     implementation 'com.google.android.gms:play-services-maps:15.0.0'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.0'
     annotationProcessor dependency.archComponentCompiler
 
     annotationProcessor dependency.androidBindingCompiler
